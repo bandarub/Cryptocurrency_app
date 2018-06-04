@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css" media="screen">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CryptoCurrency App</title>
+</head>
+<body>
+    <div class="main-container">
+
+        <div class="logo-container">
+            <h2>CryptoCurrency</h2>
+            <input id="text-box" type="text" placeholder="Search Coins" onkeyup="search()">
+            <img src="search.png" id="search" class="button" />
+        </div>
+        <div class="sorting-container">
+            <button type="button"  id="sortByName" class="button" ></button>
+            <button type="button" id="sortByPrice" class="button" >Sort by price</button>
+            <button type="button" id="sortByRank" class="button" >Sort by rank</button>
+        </div>
+        <div class="display-container" id='table'>
+        </div>
+    </div>
+    
+</body>
+<script src="main.js"></script>
+</html>
