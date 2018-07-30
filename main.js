@@ -1,11 +1,11 @@
 const input=document.getElementById("text-box");
-// const searchBtn=document.getElementById("search");
 const sortByName_btn=document.getElementById("sortByName");
 const sortByPrice_btn=document.getElementById("sortByPrice");
 const sortByRank_btn=document.getElementById("sortByRank");
-
 const displayData=document.querySelector(".display-container");
 let data;
+
+//Fetching data from API
 fetchingData();
 function fetchingData(){
     const url="https://api.coinmarketcap.com/v1/ticker/?limit=150";
@@ -18,6 +18,8 @@ data=myJson;
 display(data);
 });
 }
+
+//Created Table
 var tabl=document.createElement('table');
 tabl.id="displayTable";
 function display(data){     
@@ -71,6 +73,7 @@ function element(data,id,name,price_usd,rank,symbol,changeInPrice){
     displayData.appendChild(tabl);
 }
 
+//Search Function
 function search(){
     let searchText=input.value.toUpperCase();
     table=tabl;
@@ -94,16 +97,19 @@ function togglePrice()
 
     if(tabl.className ==="asc")
     {
+        sortByPrice_btn.innerHTML = 'Price 🔼';
         sortPriceAsc();
         tabl.className="desc";          
     }
     else if(tabl.className==="desc")
     {
+        sortByPrice_btn.innerHTML = 'Price 🔽';
         sortPriceDesc();  
         tabl.className="asc";  
-        console.log(tabl.className);                  
+                      
     }           
 }
+//Sort Price by Ascending
 function sortPriceAsc()
 {  
     data.sort(function(a,b){
@@ -112,6 +118,7 @@ function sortPriceAsc()
     tabl.innerHTML="";   
     display(data);    
 }
+//Sort Price by Descending
 function sortPriceDesc()
 {  
     data.sort(function(a,b){
@@ -125,16 +132,17 @@ sortByRank_btn.addEventListener('click',toggleRrank);
 let rank='asc';
 function toggleRrank(){
     if(rank==='asc'){
-        rankAsc();
-       
+        sortByRank_btn.innerHTML = 'Rank 🔼';
+        rankAsc();       
         rank='desc'
     }
     else if(rank==='desc'){
-        
+        sortByRank_btn.innerHTML = 'Rank 🔽';
         rankDesc();
         rank='asc';
     }
 }
+//Sort Rank by Ascending
 function rankAsc(){
     data.sort(function(a,b){
         return a.rank -b.rank;
@@ -142,6 +150,7 @@ function rankAsc(){
     tabl.innerHTML="";   
     display(data);
 }
+//Sort Rank by Decscending
 function rankDesc(){
     data.sort(function(a,b){
         return b.rank -a.rank;
@@ -150,19 +159,19 @@ function rankDesc(){
     display(data);
 }
 sortByName_btn.addEventListener('click',toggleName);
-sortByName_btn.textContent="Sort by Name";
+sortByName_btn.textContent="Sort By Name";
 let nameOrder="asc";
 function toggleName()
 {
    if(nameOrder ==="asc")
     {
-        // sortByName_btn.textContent="Sort by Name▲";
+        sortByName_btn.textContent="Name 🔼";
         sortNameAsc();
         nameOrder="desc";          
     }
     else if(nameOrder==="desc")
     {
-        // sortByName_btn.textContent="Sort by Name▼";
+        sortByName_btn.textContent="Name 🔽";
         sortNameDesc();  
         nameOrder="asc";                  
     }      
@@ -184,15 +193,17 @@ function sortNameAsc(){
 }
 function sortNameDesc(){
     data.sort(function(a,b){
-        var nameA=a.name.toUpperCase();
-        var nameB=b.name.toUpperCase();
-        if (nameA > nameB) {
-            return -1;
-          }
-          if (nameA < nameB) {
-            return 1;
-          }
-        return 0;
+        data.sort(function(a,b){
+            var nameA=a.name.toUpperCase();
+            var nameB=b.name.toUpperCase();
+            if (nameA > nameB) {
+                return -1;
+              }
+              if (nameA < nameB) {
+                return 1;
+              }
+            return 0;
+        })
     })
     tabl.innerHTML="";   
     display(data);
